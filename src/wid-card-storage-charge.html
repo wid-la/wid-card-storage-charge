@@ -34,7 +34,53 @@ Example:
       paper-material {
         overflow-y: auto;
         height: 100%;
+        background-color: #fff;
       }
+
+      #header {
+        background-color: #8bc34a;
+        color: white;
+        font-size: 2vw;
+        position: relative;
+      }
+
+      #header iron-icon {
+        height: 100%;
+        width: 50%;
+        position: absolute;
+        left: 0px;
+      }
+
+      #header .title {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+      }  
+
+      .odd {
+        background-color: #eaeaea;
+      }
+
+      .month-header {
+        color: #fff;
+      }
+
+      .even .month-header {
+        background-color: #558b2f;
+      }
+
+      .odd .month-header {
+        background-color: #669744;
+      }
+
+      .currency-value {
+        font-size: 3vw;
+      }
+
+      .label {
+        color: #595959;
+      }
+
     </style>
 
     <div id="websockets">
@@ -46,8 +92,34 @@ Example:
       </template>
     </div>
 
-    <paper-material class="layout horizontal flex" elevation="3">
-
+    <paper-material class="layout vertical flex" elevation="3">
+      <div id="header" class="flex">
+        <iron-icon src="/images/cards/railStorageCharges.svg"></iron-icon>
+        <div class="title">[[name]]</div>
+      </div>
+      <div class="layout horizontal flex-3">
+        <div class="layout vertical flex even">
+          <div class="month-header flex layout horizontal center-center">[[monthNames.m_1]]</div>
+          <div class="flex-6 layout vertical center-center">
+            <div class="currency-value">[[_getCurrencyValue(month01)]]</div>
+            <div class="label">/mo</div>
+          </div>
+        </div>
+        <div class="layout vertical flex odd">
+          <div class="month-header flex layout horizontal center-center">[[monthNames.m_2]]</div>
+          <div class="flex-6 layout vertical center-center">
+            <div class="currency-value">[[_getCurrencyValue(month02)]]</div>
+            <div class="label">/mo</div>
+          </div>
+        </div>
+        <div class="layout vertical flex even">
+          <div class="month-header flex layout horizontal center-center">[[monthNames.m_3]]</div>
+          <div class="flex-6 layout vertical center-center">
+            <div class="currency-value">[[_getCurrencyValue(month03)]]</div>
+            <div class="label">/mo</div>
+          </div>
+        </div>
+      </div>
     </paper-material>
 
   </template>
@@ -63,9 +135,61 @@ Example:
       is: 'wid-card-storage-charge',
 
       behaviors: [Polymer.WidCardStandardBehavior, Polymer.WidCardWeightBehavior, Polymer.WidCardSubscriptionsBehavior],
-      
+
       properties: {
 
+        /**
+         * name
+         * @type {String}
+         */
+        name: {
+          type: String
+        },
+
+        /**
+         * icon
+         * @type {String}
+         */
+        icon: {
+          type: String
+        },
+
+        /**
+         * month_names
+         * @type {Object}
+         */
+        monthNames: {
+          type: Object
+        },
+
+        /**
+         * month01
+         * @type {Object}
+         */
+        month01: {
+          type: Object
+        },
+
+        /**
+         * month02
+         * @type {Object}
+         */
+        month02: {
+          type: Object
+        },
+
+        /**
+         * month03
+         * @type {Object}
+         */
+        month03: {
+          type: Object
+        }
+
+      },
+
+      _getCurrencyValue: function _getCurrencyValue(value) {
+        return '$' + value;
       }
 
     });
